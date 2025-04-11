@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebarbtn from "./Sidebarbtn";
+import Logout from "./Logout";
 
 const sidebarbtn = [
   {
@@ -15,9 +16,7 @@ const sidebarbtn = [
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const handleLogout = () => {
-    navigate("/logout");
-  };
+  const [showLogout, setShowLogout] = useState(false);
 
   return (
     <div className="border-[2px] border-[#D9D9D9] w-[194px] ">
@@ -52,7 +51,7 @@ const Sidebar = () => {
                   alt="icon"
                 />
                 <h3
-                  onClick={handleLogout}
+                  onClick={() => setShowLogout(true)}
                   className="text-[#5C5E64] text-[14px] font-medium  "
                 >
                   Logout
@@ -62,6 +61,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
+      {showLogout && <Logout onClose={() => setShowLogout(false)} />}
     </div>
   );
 };

@@ -1,14 +1,9 @@
 import React from "react";
 import Bluebtn from "./Bluebtn";
-import { useNavigate } from "react-router-dom";
-const Logout = () => {
-  const navigate = useNavigate();
-  const handleCancel = () => {
-    navigate("/");
-  };
 
+const Logout = ({ onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black/30">
+    <div className="fixed inset-0 bg-black/30 z-50">
       <div className="flex items-center justify-center w-screen h-screen">
         <div className="w-[472px] h-[411.84px] rounded-[12px] py-[24px] px-[12px] flex flex-col bg-white shadow-[0px_8px_8px_-4px_rgba(16,24,40,0.08),0px_20px_24px_-4px_rgba(16,24,40,0.14)]">
           <div className="flex flex-col gap-[36px] justify-center items-center py-[25px]">
@@ -38,7 +33,7 @@ const Logout = () => {
                 <Bluebtn
                   text="Cancel"
                   containerClass="bg-[#FFFFFF] text-[#2859DF] hover:bg-[#F5F5F5]"
-                  onClick={handleCancel}
+                  onClick={onClose}
                 />
               </div>
             </div>
