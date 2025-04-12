@@ -6,12 +6,12 @@ const leadSlice = createSlice({
     leads: [
       {
         id: 1,
-        name: "Jennifer Markus",
+        name: "Sarah Johnson",
         avatar: "https://randomuser.me/api/portraits/women/65.jpg",
         location: "Mumbai, India",
         networkAvatars: [],
         description:
-          "A team from company name mentioned is seeking a highly motivated Business Development Executive to outreach and secure bo...",
+          "Looking for a skilled Project Manager with experience in agile methodologies and team leadership to join our growing tech startup...",
         time: "Found 2 hour ago",
         isLocked: true,
         score: 99,
@@ -23,16 +23,16 @@ const leadSlice = createSlice({
       },
       {
         id: 2,
-        name: "Jennifer Markus",
+        name: "Michael Chen",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-        location: "Mumbai, India",
+        location: "Delhi, India",
         networkAvatars: [
           "https://randomuser.me/api/portraits/men/31.jpg",
           "https://randomuser.me/api/portraits/women/30.jpg",
           "https://randomuser.me/api/portraits/men/29.jpg",
         ],
         description:
-          "A team from company name mentioned is seeking a highly motivated Business Development Executive to outreach and secure bo...",
+          "Seeking a Senior Software Engineer with expertise in React and Node.js to lead our frontend development team and mentor junior developers...",
         time: "3 hours ago",
         isLocked: false,
         score: 74,
@@ -42,12 +42,12 @@ const leadSlice = createSlice({
       },
       {
         id: 3,
-        name: "Jennifer Markus",
+        name: "Emma Wilson",
         avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-        location: "Mumbai, China",
+        location: "Shanghai, China",
         networkAvatars: [],
         description:
-          "A team from company name mentioned is seeking a highly motivated Business Development Executive to outreach and secure bo...",
+          "Hiring a Digital Marketing Specialist to develop and execute social media strategies and drive engagement across multiple platforms...",
         time: "Found 2 hour ago",
         isLocked: true,
         isLiked: false,
@@ -59,11 +59,11 @@ const leadSlice = createSlice({
       },
       {
         id: 4,
-        name: "Jennifer Markus",
+        name: "David Kim",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-        location: "Mumbai, Singapore",
+        location: "Sentosa, Singapore",
         description:
-          "A team from company name mentioned is seeking a highly motivated Business Development Executive to outreach and secure bo...",
+          "Looking for a Data Scientist with machine learning experience to analyze customer behavior and optimize our recommendation systems...",
         networkAvatars: [
           "https://randomuser.me/api/portraits/men/31.jpg",
           "https://randomuser.me/api/portraits/women/30.jpg",
@@ -80,11 +80,11 @@ const leadSlice = createSlice({
       },
       {
         id: 5,
-        name: "Jennifer Markus",
+        name: "Sophia Rodriguez",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-        location: "Mumbai, India",
+        location: "Berlin, Germany",
         description:
-          "A team from company name mentioned is seeking a highly motivated Business Development Executive to outreach and secure bo...",
+          "Seeking a UX/UI Designer to create intuitive and engaging user experiences for our mobile and web applications...",
         networkAvatars: [
           "https://randomuser.me/api/portraits/men/31.jpg",
           "https://randomuser.me/api/portraits/women/30.jpg",
@@ -99,11 +99,11 @@ const leadSlice = createSlice({
       },
       {
         id: 6,
-        name: "Jennifer Markus",
+        name: "James Anderson",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-        location: "Mumbai, India",
+        location: "Gurgaon, India",
         description:
-          "A team from company name mentioned is seeking a highly motivated Business Development Executive to outreach and secure bo...",
+          "Looking for a Product Manager to oversee the development of our new SaaS platform and drive product innovation...",
         networkAvatars: [
           "https://randomuser.me/api/portraits/men/31.jpg",
           "https://randomuser.me/api/portraits/women/30.jpg",
@@ -118,6 +118,10 @@ const leadSlice = createSlice({
       },
     ],
     filteredLeads: [],
+    filters: {
+      selectedCountries: [],
+      selectedScores: [],
+    },
   },
   reducers: {
     unlockLead: (state, action) => {
@@ -144,10 +148,23 @@ const leadSlice = createSlice({
     filterLeads: (state, action) => {
       state.filteredLeads = action.payload;
     },
+    setSelectedCountries: (state, action) => {
+      state.filters.selectedCountries = action.payload;
+    },
+    setSelectedScores: (state, action) => {
+      state.filters.selectedScores = action.payload;
+    },
   },
 });
 
-export const { unlockLead, assignLead, likeLead, dislikeLead, filterLeads } =
-  leadSlice.actions;
+export const {
+  unlockLead,
+  assignLead,
+  likeLead,
+  dislikeLead,
+  filterLeads,
+  setSelectedCountries,
+  setSelectedScores,
+} = leadSlice.actions;
 
 export default leadSlice.reducer;

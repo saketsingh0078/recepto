@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterLeads } from "../utils/leadSlice";
+import {
+  filterLeads,
+  setSelectedCountries,
+  setSelectedScores,
+} from "../utils/leadSlice";
 
 const countries = [
   "India",
@@ -19,25 +23,31 @@ const scoreOptions = ["0-80", "90-100"];
 const FilterPanel = ({ onClick, setFilterData }) => {
   const dispatch = useDispatch();
   const leads = useSelector((state) => state.lead.leads);
+  const selectedCountries = useSelector(
+    (state) => state.lead.filters.selectedCountries
+  );
+  const selectedScores = useSelector(
+    (state) => state.lead.filters.selectedScores
+  );
   const [activeTab, setActiveTab] = useState("location");
-  const [selectedCountries, setSelectedCountries] = useState([]);
-  const [selectedScores, setSelectedScores] = useState([]);
   const [search, setSearch] = useState("");
   const [totalApplied, setTotalApplied] = useState(0);
 
   const toggleCountry = (country) => {
     if (selectedCountries.includes(country)) {
-      setSelectedCountries(selectedCountries.filter((c) => c !== country));
+      dispatch(
+        setSelectedCountries(selectedCountries.filter((c) => c !== country))
+      );
     } else {
-      setSelectedCountries([...selectedCountries, country]);
+      dispatch(setSelectedCountries([...selectedCountries, country]));
     }
   };
 
   const toggleScore = (score) => {
     if (selectedScores.includes(score)) {
-      setSelectedScores(selectedScores.filter((s) => s !== score));
+      dispatch(setSelectedScores(selectedScores.filter((s) => s !== score)));
     } else {
-      setSelectedScores([...selectedScores, score]);
+      dispatch(setSelectedScores([...selectedScores, score]));
     }
   };
 
