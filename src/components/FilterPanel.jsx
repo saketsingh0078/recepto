@@ -6,6 +6,8 @@ import {
   setSelectedScores,
 } from "../utils/leadSlice";
 
+const filterIcon = "/filter.svg";
+
 const countries = [
   "India",
   "United Kingdom",
@@ -85,7 +87,7 @@ const FilterPanel = ({ onClick, setFilterData }) => {
         <div className="flex items-center gap-2 px-[24px] pt-[24px] w-full">
           <div className="w-[48px] h-[48px] rounded-[10px] bg-white border border-[#E9EAEB] shadow-sm flex items-center justify-center">
             <img
-              src="/filter.png"
+              src={filterIcon}
               alt="filter"
               onClick={onClick}
               className="w-[24px] h-[24px]"

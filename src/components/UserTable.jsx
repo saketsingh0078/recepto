@@ -53,7 +53,7 @@ export default function UserTable() {
                 <h3>Generated</h3>
                 <img
                   className="w-[16px] h-[16px]"
-                  src="/help-circle.png"
+                  src={helpIcon}
                   alt="filter"
                 />
               </div>
@@ -63,7 +63,7 @@ export default function UserTable() {
                 <h3>Unlocked</h3>
                 <img
                   className="w-[16px] h-[16px]"
-                  src="/help-circle.png"
+                  src={helpIcon}
                   alt="filter"
                 />
               </div>
@@ -73,7 +73,7 @@ export default function UserTable() {
                 <h3>Assigned</h3>
                 <img
                   className="w-[16px] h-[16px]"
-                  src="/help-circle.png"
+                  src={helpIcon}
                   alt="filter"
                 />
               </div>
