@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import LeadList from "./LeadList";
 import Analytic from "./Analytic";
 import { Outlet } from "react-router-dom";
+import FilterPanel from "./FilterPanel";
 
 const Layout = () => {
   return (

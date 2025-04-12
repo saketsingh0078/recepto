@@ -17,6 +17,7 @@ const Chart = ({
         <div className="flex gap-2 items-center">
           <h4 className="font-[600] text-[14px]">{title}</h4>
           <img
+            draggable={false}
             className="w-[18px] h-[18px]"
             src="/icon/alert-circle.png"
             alt="alert-circle"
@@ -53,7 +54,12 @@ const Chart = ({
         </div>
       </div>
       <div className="w-[274.5px] h=[186.73px]">
-        <img className="w-full h-full" src={chartImg} alt="chartImg" />
+        <img
+          className="w-full h-full"
+          src={chartImg}
+          draggable={false}
+          alt="chartImg"
+        />
       </div>
     </div>
   );

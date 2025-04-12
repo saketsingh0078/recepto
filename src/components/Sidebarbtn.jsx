@@ -22,8 +22,8 @@ const Sidebarbtn = ({ text, iconImg }) => {
   return (
     <button
       onClick={handleClick}
-      className={`w-[146px] h-[40px] rounded-[8px] py-[10px] px-[12px] flex gap-[12px] bg-[#EDEFF2] hover:bg-[#D4DEF9] transition-colors ${
-        isActive() ? "bg-[#D4DEF9]" : ""
+      className={`w-[146px] h-[40px] rounded-[8px] py-[10px] px-[12px] flex gap-[12px] bg-[#EDEFF2] hover:bg-[#D4DEF9] ${
+        isActive() ? "bg-blue-100" : ""
       }`}
     >
       <img className="w-[20px] h-[20px]" src={iconImg} alt="icon" />

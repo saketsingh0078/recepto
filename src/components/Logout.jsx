@@ -1,7 +1,18 @@
 import React from "react";
 import Bluebtn from "./Bluebtn";
+import { useDispatch } from "react-redux";
+import { login } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Logout = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(login(false));
+    navigate("/login");
+  };
+
   return (
     <div className="fixed inset-0 bg-black/30 z-50">
       <div className="flex items-center justify-center w-screen h-screen">
@@ -28,11 +39,12 @@ const Logout = ({ onClose }) => {
               <div className="flex flex-col gap-[16px]">
                 <Bluebtn
                   text="Logout"
-                  containerClass="bg-[#2859DF] text-[#FFFFFF]"
+                  containerClass="bg-[#2859DF] text-[#FFFFFF] hover:bg-[#2859DF]/90 transition-all duration-300"
+                  onClick={handleLogout}
                 />
                 <Bluebtn
                   text="Cancel"
-                  containerClass="bg-[#FFFFFF] text-[#2859DF] hover:bg-[#F5F5F5]"
+                  containerClass="bg-[#FFFFFF] text-[#2859DF] hover:bg-[#F5F5F5] transition-all duration-300"
                   onClick={onClose}
                 />
               </div>

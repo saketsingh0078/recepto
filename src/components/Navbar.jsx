@@ -1,13 +1,46 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterLeads } from "../utils/leadSlice";
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [input, setInput] = useState("");
+  const user = useSelector((state) => state.user);
+  const leads = useSelector((state) => state.lead.leads);
   const handleInput = (e) => {
     setInput(e.target.value);
+    if (input.length === 0) {
+      dispatch(filterLeads(leads));
+    }
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
   const handleClose = () => {
     setInput("");
+    dispatch(filterLeads(leads));
   };
+
+  const handleSearch = (e) => {
+    if (input.length === 0) {
+      dispatch(filterLeads(leads));
+    } else {
+      dispatch(
+        filterLeads(
+          leads.filter(
+            (lead) =>
+              lead.name.toLowerCase().includes(input.toLowerCase()) ||
+              lead.location.toLowerCase().includes(input.toLowerCase()) ||
+              lead.description.toLowerCase().includes(input.toLowerCase())
+          )
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [input]);
+
   return (
     <nav className="w-full h-[75px]  py-[20px] px-[15px] flex justify-between items-center bg-white">
       <div className="w-[151px] h-[37px] flex items-center justify-center gap-[7px]">
@@ -25,9 +58,10 @@ const Navbar = () => {
         <div className="w-[304px] h-[45px] flex items-center border-[1px] border-[#DDDDDD] rounded-[8px] p-[12px] gap-[10px]">
           <div className="flex w-[18px] h-[18px] items-center justify-center">
             <img
-              className="w-[13.5px] h-[13.5px]"
+              className="w-[13.5px] h-[13.5px] cursor-pointer"
               src="/icon/search.png"
               alt="search"
+              onClick={handleSearch}
             />
           </div>
           <input
@@ -53,7 +87,9 @@ const Navbar = () => {
           border-[1px] border-[#DDDDDD] py-4 px-[20px] flex items-center gap-[10px] hover:bg-[#2859DF]/80 transition-all duration-300"
         >
           <img className="w-[24px] h-[24px]" src="/icon/coin.png" alt="coin" />
-          <p className="font-[600] text-[14px] text-[#FFFFFF] ">0 credits</p>
+          <p className="font-[600] text-[14px] text-[#FFFFFF] ">
+            {user.user[0]?.credit || 0} credits
+          </p>
         </button>
         <div className="flex justify-between items-center">
           <div className="flex items-center w-[176px] gap-[6px]">

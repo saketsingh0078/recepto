@@ -1,65 +1,6 @@
-const users = [
-  {
-    name: "Olivia Rhye",
-    avatar: "/avatar/Avatar.png",
-    lastActive: "2min ago",
-    role: "Admin",
-    roleIcon: <img src="/Qualified.png" alt="Qualified" />,
-    generated: 123,
-    unlocked: 123,
-    assigned: 40,
-    assignedIcon: <img src="/one-waves-solid.png" alt="one-waves-solid" />,
-    assignedColor: "bg-orange-100 text-orange-600",
-  },
-  {
-    name: "Olivia Rhye",
-    avatar: "/avatar/Avatar.png",
-    lastActive: "2min ago",
-    role: "Removed",
-    roleIcon: <img src="/RemoveQualified.png" alt="Removed" />,
-    generated: 23,
-    unlocked: 23,
-    assigned: 25,
-    assignedIcon: <img src="/two-waves-solid.png" alt="two-waves-solid" />,
-    assignedColor: "bg-blue-100 text-blue-600",
-  },
-  {
-    name: "Olivia Rhye",
-    avatar: "/avatar/Avatar.png",
-    lastActive: "2min ago",
-    role: "Member",
-    roleIcon: <img src="/RemoveQualified.png" alt="Removed" />,
-    generated: 56,
-    unlocked: 56,
-    assigned: 15,
-    assignedIcon: <img src="/three-waves-solid.png" alt="three-waves-solid" />,
-    assignedColor: "bg-green-100 text-green-600",
-  },
-  {
-    name: "Olivia Rhye",
-    avatar: "/avatar/Avatar.png",
-    lastActive: "2min ago",
-    role: "Admin",
-    roleIcon: <img src="/Qualified.png" alt="Qualified" />,
-    generated: 12,
-    unlocked: 12,
-    assigned: 10,
-    assignedIcon: null,
-    assignedColor: "bg-gray-100 text-gray-600",
-  },
-  {
-    name: "Olivia Rhye",
-    avatar: "/avatar/Avatar.png",
-    lastActive: "2min ago",
-    role: "Member",
-    roleIcon: <img src="/RemoveQualified.png" alt="Removed" />,
-    generated: 123,
-    unlocked: 123,
-    assigned: 5,
-    assignedIcon: null,
-    assignedColor: "bg-gray-100 text-gray-600",
-  },
-];
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import Actions from "./Actions";
 
 const roleColors = {
   Admin: "text-blue-600 bg-blue-100",
@@ -68,6 +9,27 @@ const roleColors = {
 };
 
 export default function UserTable() {
+  const users = useSelector((state) => state.user);
+  const [activeRowIndex, setActiveRowIndex] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 5;
+
+  const handleActions = (index) => {
+    setIsModalOpen(true);
+    setActiveRowIndex(activeRowIndex === index ? null : index);
+  };
+
+  // Calculate pagination
+  const totalPages = Math.ceil(users.user.length / usersPerPage);
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.user.slice(indexOfFirstUser, indexOfLastUser);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="py-4 rounded-lg border shadow-sm">
       <table className="w-full text-sm text-left">
@@ -118,7 +80,7 @@ export default function UserTable() {
           </tr>
         </thead>
         <tbody className="bg-white">
-          {users.map((user, i) => (
+          {currentUsers.map((user, i) => (
             <tr key={i} className="border-t">
               <td className="px-4 py-3 flex items-center gap-3">
                 <div className="relative">
@@ -142,7 +104,7 @@ export default function UserTable() {
                     roleColors[user.role]
                   }`}
                 >
-                  {user.roleIcon && <span>{user.roleIcon}</span>}
+                  {user.roleIcon && <img src={user.roleIcon} alt="role" />}
                   {user.role}
                 </span>
               </td>
@@ -152,16 +114,24 @@ export default function UserTable() {
                 <span
                   className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full font-semibold ${user.assignedColor}`}
                 >
-                  {user.assignedIcon && <span>{user.assignedIcon}</span>}
+                  {user.assignedIcon && (
+                    <img src={user.assignedIcon} alt="assigned" />
+                  )}
                   {user.assigned}
                 </span>
               </td>
-              <td className="px-4 py-3 text-right">
+              <td className="px-4 py-3 text-right relative">
                 <img
                   src="/dots-vertical.png"
-                  size={16}
-                  className="text-gray-500 cursor-pointer"
+                  draggable={false}
+                  className={`w-[24px] h-[24px] text-gray-500 cursor-pointer ${
+                    isModalOpen && activeRowIndex === i ? "bg-blue-100 " : ""
+                  }`}
+                  onClick={() => handleActions(i)}
                 />
+                {isModalOpen && activeRowIndex === i && (
+                  <Actions id={user.id} setIsModalOpen={setIsModalOpen} />
+                )}
               </td>
             </tr>
           ))}
@@ -170,7 +140,11 @@ export default function UserTable() {
 
       {/* Pagination */}
       <div className="flex justify-between items-center mt-4 px-4">
-        <button className="border-[1px] px-[14px] py-[8px] rounded-lg border-[#D0D5DD] bg-white">
+        <button
+          className="border-[1px] px-[14px] py-[8px] rounded-lg border-[#D0D5DD] bg-white disabled:opacity-50"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           <div className="flex gap-2">
             <img
               className="w-[20px] h-[20px]"
@@ -181,21 +155,27 @@ export default function UserTable() {
           </div>
         </button>
         <div className="flex items-center gap-2 text-sm">
-          <button className="w-[40px] h-[40px] bg-[#F9FAFB] px-3 py-1 rounded-lg text-[14px] font-[500] text-[#1D2939]">
-            1
-          </button>
-          <button className="w-[40px] h-[40px] bg-[#F9FAFB] text-[#475467] px-3 py-1 rounded-lg">
-            2
-          </button>
-          <span>...</span>
-          <button className="w-[40px] h-[40px] bg-[#F9FAFB] text-[#475467] px-3 py-1 rounded-lg">
-            6
-          </button>
-          <button className="w-[40px] h-[40px] bg-[#F9FAFB] text-[#475467] px-3 py-1 rounded-lg">
-            7
-          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+            (pageNumber) => (
+              <button
+                key={pageNumber}
+                className={`w-[40px] h-[40px] px-3 py-1 rounded-lg text-[14px] font-[500] ${
+                  currentPage === pageNumber
+                    ? "bg-[#F9FAFB] text-[#1D2939]"
+                    : "bg-[#F9FAFB] text-[#475467]"
+                }`}
+                onClick={() => handlePageChange(pageNumber)}
+              >
+                {pageNumber}
+              </button>
+            )
+          )}
         </div>
-        <button className="border-[1px] px-[14px] py-[8px] rounded-lg border-[#D0D5DD] bg-white">
+        <button
+          className="border-[1px] px-[14px] py-[8px] rounded-lg border-[#D0D5DD] bg-white disabled:opacity-50"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
           <div className="flex gap-2">
             <h2 className="text-[14px] font-[600]">Next</h2>
             <img

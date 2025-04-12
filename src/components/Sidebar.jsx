@@ -15,7 +15,6 @@ const sidebarbtn = [
 ];
 
 const Sidebar = () => {
-  const navigate = useNavigate();
   const [showLogout, setShowLogout] = useState(false);
 
   return (
@@ -44,16 +43,16 @@ const Sidebar = () => {
             </div>
 
             <div className="flex-1 flex items-center justify-center">
-              <button className="flex w-[147px] h-[40px] rounded-[8px]  gap-[12px] py-[10px] px-[12px]">
+              <button
+                className="flex w-[147px] h-[40px] rounded-[8px]  gap-[12px] py-[10px] px-[12px] hover:bg-[#2859DF]/10 transition-all duration-300"
+                onClick={() => setShowLogout(true)}
+              >
                 <img
                   className="w-[20px] h-[20px]"
                   src="/icon/setting.png"
                   alt="icon"
                 />
-                <h3
-                  onClick={() => setShowLogout(true)}
-                  className="text-[#5C5E64] text-[14px] font-medium  "
-                >
+                <h3 className="text-[#5C5E64] text-[14px] font-medium  ">
                   Logout
                 </h3>
               </button>
