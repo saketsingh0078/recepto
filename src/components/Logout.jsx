@@ -2,15 +2,14 @@ import React from "react";
 import Bluebtn from "./Bluebtn";
 import { useDispatch } from "react-redux";
 import { login } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
 
 const Logout = ({ onClose }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(login(false));
-    navigate("/login");
+    localStorage.setItem("isLoggedIn", false);
+    dispatch(login(false));
   };
 
   return (

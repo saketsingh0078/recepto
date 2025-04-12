@@ -5,26 +5,36 @@ import UserTable from "./UserTable";
 
 const chartData = [
   {
+    id: 1,
     logo: "/CompanyImg.png",
     title: "ReceptoNetLeads",
     total: "400",
     details: [
       {
         title: "Unlocked",
-        value: "129",
+        value: "179",
         class: "bg-[#2859DF]",
       },
       {
         title: "Yet to Unlock",
-        value: "271",
+        value: "394",
         class: "bg-[#D4DEF9]",
       },
     ],
-    chartImg: "/blue-graph.png",
+    chartData: [
+      { name: "Jan", value: 190 },
+      { name: "Feb", value: 280 },
+      { name: "May", value: 394, isCurrentPoint: true },
+      { name: "Jun", value: 420 },
+    ],
+    ticks: [0, 100, 300, 400, 500],
+    chartClass: "#ADB7F9",
+    referenceLineClass: "#2859DF",
     containerClass: "bg-[#2859DF]",
     barClass: "bg-[#D4DEF9]",
   },
   {
+    id: 2,
     logo: "/adImg.png",
     title: "OrgoNetLeads",
     total: "594",
@@ -40,7 +50,15 @@ const chartData = [
         class: "bg-[#FFE0DB]",
       },
     ],
-    chartImg: "/red-graph.png",
+    chartData: [
+      { name: "Jan", value: 290 },
+      { name: "Feb", value: 380 },
+      { name: "May", value: 394, isCurrentPoint: true },
+      { name: "Jun", value: 500 },
+    ],
+    ticks: [0, 150, 270, 380, 600],
+    chartClass: "#F9CAAD",
+    referenceLineClass: "#FF8E26",
     containerClass: "bg-[#FF8E26]",
     barClass: "bg-[#FFE0DB]",
   },
@@ -81,8 +99,8 @@ const Analytic = () => {
           </div>
           <div className="flex  justify-center items-center">
             <div className="w-[469px] h-[385px] flex flex-wrap gap-4 items-center ">
-              {leadChartData.map((item) => (
-                <LeadChart key={item.title} {...item} />
+              {leadChartData.map((item, index) => (
+                <LeadChart key={index} {...item} />
               ))}
             </div>
           </div>

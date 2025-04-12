@@ -3,13 +3,14 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Analytic from "./components/Analytic";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { login } from "./utils/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 const App = () => {
   const user = useSelector((state) => state.user);
-  const isLoggedIn = user.isLoggedIn;
   const dispatch = useDispatch();
+  const loginStatus = localStorage.getItem("isLoggedIn");
+  const isLoggedIn = user?.isLoggedIn || loginStatus;
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -17,6 +18,7 @@ const App = () => {
       const password = prompt("Try using 'admin' as password");
 
       if (email === "admin@gmail.com" && password === "admin") {
+        localStorage.setItem("isLoggedIn", true);
         dispatch(login(true));
       }
     }
@@ -42,7 +44,7 @@ const App = () => {
         }
       />
 
-      <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/leads" replace />} />
           <Route path="leads" element={<LeadList />} />

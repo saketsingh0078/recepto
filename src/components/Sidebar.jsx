@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Sidebarbtn from "./Sidebarbtn";
 import Logout from "./Logout";
-
+import settingIcon from "/setting.svg";
+import homeIcon from "/homedoor.svg";
+import analyticsIcon from "/piechart.svg";
 const sidebarbtn = [
   {
     text: "Leads",
-    icon: "/icon/Home-simple-door.png",
+    icon: homeIcon,
   },
   {
     text: "Analytics",
-    icon: "/icon/pie-chart-03.png",
+    icon: analyticsIcon,
   },
 ];
 
@@ -18,7 +19,7 @@ const Sidebar = () => {
   const [showLogout, setShowLogout] = useState(false);
 
   return (
-    <div className="border-[2px] border-[#D9D9D9] w-[194px] ">
+    <div className="border-[2px] h-full border-[#D9D9D9] w-[194px] ">
       <div className="flex flex-col gap-[12px]">
         <div className="h-[72.45px] border-b-[2px] border-[#D9D9D9] flex items-center justify-center">
           <img className="w-[92px] h-[24.45px]" src="logo.png" alt="logo" />
@@ -45,11 +46,13 @@ const Sidebar = () => {
             <div className="flex-1 flex items-center justify-center">
               <button
                 className="flex w-[147px] h-[40px] rounded-[8px]  gap-[12px] py-[10px] px-[12px] hover:bg-[#2859DF]/10 transition-all duration-300"
-                onClick={() => setShowLogout(true)}
+                onClick={() => {
+                  setShowLogout(true);
+                }}
               >
                 <img
                   className="w-[20px] h-[20px]"
-                  src="/icon/setting.png"
+                  src={settingIcon}
                   alt="icon"
                 />
                 <h3 className="text-[#5C5E64] text-[14px] font-medium  ">

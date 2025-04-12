@@ -8,6 +8,8 @@ import {
 import { changeUserCredit } from "../utils/userSlice";
 import { useEffect, useState } from "react";
 import FilterPanel from "./FilterPanel";
+import AssignUser from "./AssignUser";
+import filterIcon from "/filter.svg";
 
 export default function LeadList() {
   const dispatch = useDispatch();
@@ -16,6 +18,8 @@ export default function LeadList() {
   const filteredLeads = useSelector((state) => state.lead.filteredLeads);
   const userCredit = user.user[0].credit;
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isAssignOpen, setIsAssignOpen] = useState(false);
+  const [selectedLead, setSelectedLead] = useState(null);
 
   useEffect(() => {
     dispatch(filterLeads(leads));
@@ -56,7 +60,7 @@ export default function LeadList() {
           <div className="flex items-center gap-2">
             <img
               className="w-[24px] h-[24px] cursor-pointer"
-              src="/filter.png"
+              src={filterIcon}
               alt="filter"
               onClick={handleFilterOpen}
             />
@@ -71,7 +75,11 @@ export default function LeadList() {
         {filteredLeads?.map((lead) => (
           <div
             key={lead.id}
-            className={`flex p-4 rounded-xl border shadow-sm hover:shadow-md hover:shadow-gray-300 hover:scale-[1.01] transition-all duration-600 bg-white ${
+            className={`relative  flex p-4 rounded-xl border shadow-sm hover:shadow-md hover:shadow-gray-300 ${
+              isAssignOpen && selectedLead === lead.id
+                ? "border-[#0085FF]/40 shadow-lg"
+                : "border-[#DDDDDD]"
+            } bg-white ${
               lead.isLocked ? "border-l-[6px] border-l-[#0085FF]" : ""
             }`}
           >
@@ -168,7 +176,14 @@ export default function LeadList() {
                       ) : (
                         <div className="flex gap-2">
                           <div className="flex gap-2 items-center">
-                            <button className="w-[170px] h-[30px] px-4 py-1 border border-[#A16207] text-[#895419] text-sm rounded-full font-[600]">
+                            <button
+                              className="w-[170px] h-[30px] px-4 py-1 border border-[#A16207] text-[#895419] text-sm rounded-full font-[600]"
+                              onClick={() => {
+                                setIsAssignOpen(true);
+                                setSelectedLead(lead.id);
+                              }}
+                              disabled={isAssignOpen}
+                            >
                               Assign
                             </button>
                             <button className="w-[170px] h-[30px] px-4 py-1 border border-[#A16207] text-[#895419] text-sm rounded-full font-[600]">
@@ -237,6 +252,14 @@ export default function LeadList() {
                 )}
               </div>
             </div>
+            {isAssignOpen && selectedLead === lead.id && (
+              <AssignUser
+                onClose={() => {
+                  setIsAssignOpen(false);
+                  setSelectedLead(null);
+                }}
+              />
+            )}
           </div>
         ))}
       </div>

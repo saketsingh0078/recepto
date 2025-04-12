@@ -139,11 +139,21 @@ const leadSlice = createSlice({
       const leadIndex = action.payload;
       state.leads[leadIndex].isLiked = !state.leads[leadIndex].isLiked;
       state.leads[leadIndex].isDisliked = false;
+      if (state.leads[leadIndex].isLiked) {
+        state.leads[leadIndex].score += 1;
+      } else {
+        state.leads[leadIndex].score -= 1;
+      }
     },
     dislikeLead: (state, action) => {
       const leadIndex = action.payload;
       state.leads[leadIndex].isDisliked = !state.leads[leadIndex].isDisliked;
       state.leads[leadIndex].isLiked = false;
+      if (state.leads[leadIndex].isDisliked) {
+        state.leads[leadIndex].score -= 1;
+      } else {
+        state.leads[leadIndex].score += 1;
+      }
     },
     filterLeads: (state, action) => {
       state.filteredLeads = action.payload;

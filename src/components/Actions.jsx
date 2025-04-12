@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, manageUser } from "../utils/userSlice";
+import removeIcon from "/remove.svg";
+import manageIcon from "/manage.svg";
+
 const Actions = ({ id, setIsModalOpen }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log(user, id);
 
   const handleManageRole = () => {
     setIsModalOpen(false);
@@ -25,7 +27,7 @@ const Actions = ({ id, setIsModalOpen }) => {
           className="w-full py-[6px] px-[24px] h-[46px] border-b-[1px] border-[#EAECF0] flex items-center gap-2 "
           onClick={handleManageRole}
         >
-          <img className="w-[24px] h-[24px]" src="/manage.png" alt="manage" />
+          <img className="w-[24px] h-[24px]" src={manageIcon} alt="manage" />
           <h2 className="w-full text-[14px] font-[600] text-start">
             Manage Role
           </h2>
@@ -34,7 +36,7 @@ const Actions = ({ id, setIsModalOpen }) => {
           className="w-full py-[6px] px-[24px] h-[46px] flex items-center gap-2"
           onClick={handleRemoveFromTeam}
         >
-          <img src="/remove.png" alt="remove" />
+          <img className="w-[24px] h-[24px]" src={removeIcon} alt="remove" />
           <h2 className="text-[14px] font-[600]">Remove from team</h2>
         </button>
       </div>

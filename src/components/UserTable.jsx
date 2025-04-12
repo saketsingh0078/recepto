@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Actions from "./Actions";
+import dropDownIcon from "/Dropdown.svg";
+import helpIcon from "/help.svg";
 
 const roleColors = {
   Admin: "text-blue-600 bg-blue-100",
@@ -41,7 +43,7 @@ export default function UserTable() {
                 <h3>Role</h3>
                 <img
                   className="w-[16px] h-[16px]"
-                  src="/help-circle.png"
+                  src={helpIcon}
                   alt="filter"
                 />
               </div>
@@ -122,7 +124,7 @@ export default function UserTable() {
               </td>
               <td className="px-4 py-3 text-right relative">
                 <img
-                  src="/dots-vertical.png"
+                  src={dropDownIcon}
                   draggable={false}
                   className={`w-[24px] h-[24px] text-gray-500 cursor-pointer ${
                     isModalOpen && activeRowIndex === i ? "bg-blue-100 " : ""

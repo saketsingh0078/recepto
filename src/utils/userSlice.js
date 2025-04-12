@@ -9,7 +9,7 @@ const userSlice = createSlice({
       {
         id: 1,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         role: "Admin",
@@ -24,7 +24,7 @@ const userSlice = createSlice({
       {
         id: 2,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         role: "Removed",
@@ -39,7 +39,7 @@ const userSlice = createSlice({
       {
         id: 3,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         email: "olivia@gmail.com",
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       {
         id: 4,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         email: "olivia@gmail.com",
@@ -69,7 +69,7 @@ const userSlice = createSlice({
       {
         id: 5,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         email: "olivia@gmail.com",
@@ -84,7 +84,7 @@ const userSlice = createSlice({
       {
         id: 6,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         email: "olivia@gmail.com",
@@ -99,7 +99,7 @@ const userSlice = createSlice({
       {
         id: 7,
         name: "Olivia Rhye",
-        avatar: "/avatar/Avatar.png",
+        avatar: "/profileImg.png",
         lastActive: "2min ago",
         credit: 4,
         email: "olivia@gmail.com",

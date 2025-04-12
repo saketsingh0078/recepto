@@ -1,14 +1,18 @@
 import React from "react";
 import Progressbar from "./Progressbar";
+import Graph from "./Graph";
 
 const Chart = ({
   logo,
   title,
   total,
   details,
-  chartImg,
+  chartData,
+  ticks,
+  chartClass,
   containerClass,
   barClass,
+  referenceLineClass,
 }) => {
   return (
     <div className="flex gap-6 bg-[#FFFFFF] p-4 rounded-[12px] hover:shadow-md hover:scale-105 transition-all duration-300">
@@ -54,11 +58,11 @@ const Chart = ({
         </div>
       </div>
       <div className="w-[274.5px] h=[186.73px]">
-        <img
-          className="w-full h-full"
-          src={chartImg}
-          draggable={false}
-          alt="chartImg"
+        <Graph
+          data={chartData}
+          ticks={ticks}
+          chartClass={chartClass}
+          referenceLineClass={referenceLineClass}
         />
       </div>
     </div>
