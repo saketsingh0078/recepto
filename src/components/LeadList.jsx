@@ -26,7 +26,6 @@ export default function LeadList() {
   }, [leads]);
 
   const handleUnlock = (id) => {
-    console.log(userCredit, leads[id].creditToUnlock);
     const leftCredit = userCredit - leads[id].creditToUnlock;
     if (userCredit > leads[id].creditToUnlock) {
       dispatch(unlockLead(id + 1));

@@ -3,24 +3,21 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Analytic from "./components/Analytic";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { login } from "./utils/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const loginStatus = localStorage.getItem("isLoggedIn");
-  const isLoggedIn = user.isLoggedIn && loginStatus === "true";
+  const loginStatus = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = user.isLoggedIn || loginStatus;
 
   useEffect(() => {
-    // Initialize login state from localStorage
-    if (loginStatus === "true" && !user.isLoggedIn) {
+    if (loginStatus && !user.isLoggedIn) {
       dispatch(login(true));
-    } else if (loginStatus === "false" && user.isLoggedIn) {
-      dispatch(login(false));
     }
-  }, [loginStatus, user.isLoggedIn, dispatch]);
+  }, []);
 
   useEffect(() => {
     if (!isLoggedIn) {
